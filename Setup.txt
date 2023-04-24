@@ -1,0 +1,26 @@
+Setup
+
+1. composer require slim/slim:"4.*"
+2. Slim PSR-7
+	composer require slim/psr7 
+3. Web Server
+	cd public/
+	php -S localhost:8888
+4. Check enabled a2enmod rewrite
+5. create htaccess in public file (index and htaccess are in the same folder)
+6. Contain this code
+	RewriteEngine On
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^ index.php [QSA,L]
+7. Add a second .htaccess
+	RewriteEngine on
+	RewriteRule ^$ public/ [L]
+	RewriteRule (.*) public/$1 [L]
+8. Config .htaccess
+	<Directory /var/www/>
+    		Options Indexes FollowSymLinks
+    		AllowOverride All
+    		Require all granted
+	</Directory>
+9.$app->setBasePath('/project');
